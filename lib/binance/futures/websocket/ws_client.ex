@@ -124,6 +124,7 @@ defmodule Binance.Futures.WebSocket.WSClient do
 
       def handle_frame({:text, json_data}, state) do
         response = json_data |> Poison.decode!()
+        response = Map.put(response, "lib_ts", :os.system_time(:millisecond))
         handle_response(response, state)
       end
 

@@ -17,8 +17,8 @@ defmodule Binance.Config do
   """
   def get(nil) do
     %__MODULE__{
-      api_key: System.get_env("BINANCE_API_KEY"),
-      api_secret: System.get_env("BINANCE_API_SECRET")
+      api_key: Application.get_env(:binance, :api_key),
+      api_secret: Application.get_env(:binance, :api_secret)
     }
   end
 

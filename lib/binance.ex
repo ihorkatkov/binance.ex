@@ -179,6 +179,17 @@ defmodule Binance do
     end
   end
 
+  @doc """
+  Cancels all active orders from binance.
+  """
+  def cancel_all_orders(params, config \\ nil) do
+    case HTTPClient.delete_binance("/api/v3/openOrders", params, config) do
+      {:ok, %{"rejectReason" => _} = err} -> {:error, err}
+      {:ok, data} -> {:ok, Binance.Order.new(data)}
+      err -> err
+    end
+  end
+
   # Order
 
   @doc """
